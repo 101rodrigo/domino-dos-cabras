@@ -1,111 +1,190 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+@import "tailwindcss";
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Righteous&display=swap');
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+/* Configurações de tema do Tailwind CSS v4 */
+@theme {
+  --font-sans: 'Fredoka', sans-serif;
+  --font-fredoka: 'Fredoka', sans-serif;
+  --font-righteous: 'Righteous', sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
-
-body {
-  margin: 0;
-}
-
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
+* {
+  font-family: 'Fredoka', sans-serif;
   box-sizing: border-box;
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+.title-font {
+  font-family: 'Righteous', sans-serif;
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
+/* ==========================================
+    PALETA DE CORES SERTÃO SUNSET & FUNDOS
+   ========================================== */
+.sertao-sunset {
+  background: linear-gradient(135deg, #1f0f08 0%, #3a1505 40%, #581d00 75%, #100805 100%);
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
+.glass-panel {
+  background: rgba(18, 10, 5, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(251, 146, 60, 0.15);
+  box-shadow: 0 16px 36px 0 rgba(0, 0, 0, 0.5);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.glass-panel-hover:hover {
+  background: rgba(28, 15, 8, 0.7);
+  border-color: rgba(251, 146, 60, 0.35);
+  box-shadow: 0 20px 48px 0 rgba(251, 146, 60, 0.15);
+  transform: translateY(-2px);
+}
+
+/* ==========================================
+   MESA DE TABULEIRO E PEÇAS DE DOMINÓ
+   ========================================== */
+.round-table {
+  background: radial-gradient(circle at center, #1b3823 0%, #0d1f14 100%);
+  border: 12px solid #422213;
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.85), 0 20px 50px rgba(0, 0, 0, 0.7);
+  position: relative;
+}
+
+.table-wood-rim {
+  border-radius: 50%;
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  right: -6px;
+  bottom: -6px;
+  border: 4px solid #5a311b;
+  pointer-events: none;
+}
+
+/* Efeito tátil de tremor e clique em peças de dominó */
+@keyframes tile-shake {
+  0%, 100% { transform: rotate(0deg); }
+  33% { transform: rotate(-1.5deg) scale(1.02); }
+  66% { transform: rotate(1.5deg) scale(1.02); }
+}
+
+.domino-tile-white {
+  background: linear-gradient(135deg, #ffffff 0%, #e6e6e6 100%);
+  border: 3px solid #b3b3b3;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,255,1);
+  color: #1a1a1a;
+  transition: all 0.2s ease;
+}
+.domino-tile-white:hover {
+  animation: tile-shake 0.25s infinite alternate;
+  box-shadow: 0 10px 20px rgba(251, 146, 60, 0.3), inset 0 2px 4px rgba(255,255,255,1);
+  border-color: #fb923c;
+}
+.domino-tile-white:active {
+  transform: scale(0.96) translateY(2px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.domino-tile-black {
+  background: linear-gradient(135deg, #1f1f1f 0%, #0d0d0d 100%);
+  border: 3px solid #2d2d2d;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.15);
+  color: #f3f4f6;
+  transition: all 0.2s ease;
+}
+.domino-tile-black:hover {
+  animation: tile-shake 0.25s infinite alternate;
+  box-shadow: 0 10px 20px rgba(239, 68, 68, 0.3), inset 0 1px 2px rgba(255,255,255,0.15);
+  border-color: #ef4444;
+}
+.domino-tile-black:active {
+  transform: scale(0.96) translateY(2px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* ==========================================
+   PÓDIO TRIDIMENSIONAL (PODIUM 3D)
+   ========================================== */
+.podium-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px 0;
+}
+
+.podium-pillar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  border-radius: 16px 16px 8px 8px;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.podium-pillar:hover {
+  transform: translateY(-8px);
+}
+
+.podium-gold {
+  background: linear-gradient(180deg, #ffd700 0%, #d4af37 50%, #aa8c2c 100%);
+  border: 2px solid rgba(255, 215, 0, 0.4);
+  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.25);
+}
+.podium-silver {
+  background: linear-gradient(180deg, #f0f0f0 0%, #c0c0c0 50%, #909090 100%);
+  border: 2px solid rgba(230, 230, 230, 0.4);
+  box-shadow: 0 10px 30px rgba(192, 192, 192, 0.2);
+}
+.podium-bronze {
+  background: linear-gradient(180deg, #e69d5e 0%, #cd7f32 50%, #9c5c20 100%);
+  border: 2px solid rgba(205, 127, 50, 0.4);
+  box-shadow: 0 10px 30px rgba(205, 127, 50, 0.2);
+}
+
+/* ==========================================
+   ANIMAÇÕES E EFEITOS GLOW
+   ========================================== */
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-12px) scale(1.02); }
+}
+.float-anim {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes pulse-orange {
+  0% { box-shadow: 0 0 0 0 rgba(251, 146, 60, 0.5); }
+  70% { box-shadow: 0 0 0 12px rgba(251, 146, 60, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(251, 146, 60, 0); }
+}
+.pulse-glow-orange {
+  animation: pulse-orange 2s infinite;
+}
+
+@keyframes pulse-green {
+  0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5); }
+  70% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+.pulse-green {
+  animation: pulse-green 1.8s infinite;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(251, 146, 60, 0.35);
   border-radius: 4px;
-  color: var(--text-h);
 }
-
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(251, 146, 60, 0.6);
 }
